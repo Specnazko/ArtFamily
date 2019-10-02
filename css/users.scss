@@ -2,17 +2,16 @@
     font-family: Nautilus;
     src: url(../fonts/nautilus/nautiluspompilius.woff); 
    }
+   
 @font-face {
     font-family: Lato;
     src: url(../fonts/Lato/Lato-Regular.ttf); 
 }
 
-
 body {
     background-color: rgb(22, 21, 21);
     color: rgb(204, 200, 200);
     font-family: Lato;
-    
 
     header {
         display: flex;
@@ -31,59 +30,6 @@ body {
     }
 
     main {
-        margin: 100px 50px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        flex-wrap: wrap;
-
-        .user-table {
-            margin: 30px;
-            width: 280px;
-            height: 450px;
-            min-width: 280px;
-            min-height: 450px;
-            border-radius: 6px;
-            background-color: rgb(19, 18, 18);
-            border: 1px solid rgb(61, 61, 61);
-
-            &-info {
-                display: flex;
-                align-items: center;
-                padding: 15px;
-                height: 100px;
-                
-                .user-nickname {
-                    color: rgb(204, 200, 200);
-                    text-decoration: none;
-                    margin-left: 10px;
-                    font-size: 23px;
-                    cursor: pointer;
-                }
-
-                .user-icon {
-                    width: 70px;
-                    border-radius: 50%;
-                }
-            }
-
-            &-images {
-                display: flex;
-                flex-direction: row;
-                justify-content: space-around;
-                flex-wrap: wrap;
-                //padding: 3px;
-
-                .img {
-                    margin: 3px;
-                    cursor: zoom-in;
-                    border-radius: 6px;
-                    height: auto; 
-                    width: auto; 
-                    max-height: 100px;
-                }
-            }
-        }
     }
 
     footer {

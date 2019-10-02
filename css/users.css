@@ -39,80 +39,6 @@ body header .home-link {
   font-family: Nautilus;
 }
 
-body main {
-  margin: 100px 50px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-}
-
-body main .user-table {
-  margin: 30px;
-  width: 280px;
-  height: 450px;
-  min-width: 280px;
-  min-height: 450px;
-  border-radius: 6px;
-  background-color: #131212;
-  border: 1px solid #3d3d3d;
-}
-
-body main .user-table-info {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding: 15px;
-  height: 100px;
-}
-
-body main .user-table-info .user-nickname {
-  color: #ccc8c8;
-  text-decoration: none;
-  margin-left: 10px;
-  font-size: 23px;
-  cursor: pointer;
-}
-
-body main .user-table-info .user-icon {
-  width: 70px;
-  border-radius: 50%;
-}
-
-body main .user-table-images {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-}
-
-body main .user-table-images .img {
-  margin: 3px;
-  cursor: -webkit-zoom-in;
-  cursor: zoom-in;
-  border-radius: 6px;
-  height: auto;
-  width: auto;
-  max-height: 100px;
-}
-
 body footer {
   position: absolute;
   bottom: 0px;
@@ -166,4 +92,4 @@ body .open-img-wrapper .open-img .full-img {
   border: 3px solid white;
   border-radius: 6px;
 }
-/*# sourceMappingURL=index.css.map */
+/*# sourceMappingURL=users.css.map */
