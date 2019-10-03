@@ -1,0 +1,169 @@
+@font-face {
+  font-family: Nautilus;
+  src: url(../fonts/nautilus/nautiluspompilius.woff);
+}
+
+@font-face {
+  font-family: Lato;
+  src: url(../fonts/Lato/Lato-Regular.ttf);
+}
+
+body {
+  background-color: #161515;
+  color: #ccc8c8;
+  font-family: Lato;
+}
+
+body header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100px;
+  background-color: #131212;
+}
+
+body header .home-link {
+  font-size: 50px;
+  color: white;
+  text-decoration: none;
+  font-family: Nautilus;
+}
+
+body main {
+  margin: 100px 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+body main .user-table {
+  margin: 30px;
+  width: 280px;
+  height: 450px;
+  min-width: 280px;
+  min-height: 450px;
+  border-radius: 6px;
+  background-color: #131212;
+  border: 1px solid #3d3d3d;
+}
+
+body main .user-table-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 15px;
+  height: 100px;
+}
+
+body main .user-table-info .user-nickname {
+  color: #ccc8c8;
+  text-decoration: none;
+  margin-left: 10px;
+  font-size: 23px;
+  cursor: pointer;
+}
+
+body main .user-table-info .user-icon {
+  width: 70px;
+  border-radius: 50%;
+}
+
+body main .user-table-images {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+body main .user-table-images .img {
+  margin: 3px;
+  cursor: -webkit-zoom-in;
+  cursor: zoom-in;
+  border-radius: 6px;
+  height: auto;
+  width: auto;
+  max-height: 100px;
+}
+
+body footer {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #131212;
+}
+
+body footer .github-link {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin: 10px;
+}
+
+body .open-img-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: none;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+body .open-img-wrapper .open-img {
+  position: absolute;
+  max-width: 80%;
+  height: 80%;
+}
+
+body .open-img-wrapper .open-img .full-img {
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+  width: auto;
+  border: 7px solid #242424;
+  border-radius: 6px;
+}
+/*# sourceMappingURL=index.css.map */
