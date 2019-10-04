@@ -40,10 +40,50 @@ body header .home-link {
   font-family: Nautilus;
 }
 
-body main .image-container {
+body main {
+  height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 0px 50px 50px 50px;
+}
+
+body main .images-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+body main .images-container .image-wrapper {
+  border: 4px solid #383838;
+  border-radius: 6px;
+  cursor: -webkit-zoom-in;
+  cursor: zoom-in;
+}
+
+body main .images-container .image-wrapper .image {
+  max-width: 300px;
+  max-height: 100%;
+  height: auto;
+  width: auto;
 }
 
 body footer {
@@ -70,7 +110,7 @@ body footer .github-link {
 }
 
 body .open-img-wrapper {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   height: 100%;
@@ -82,21 +122,38 @@ body .open-img-wrapper {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+body .open-img-wrapper .next-img {
+  height: 70px;
+  cursor: pointer;
+}
+
+body .open-img-wrapper .early-img {
+  cursor: pointer;
+  height: 70px;
 }
 
 body .open-img-wrapper .open-img {
   display: none;
-  position: absolute;
-  max-width: 80%;
+  width: auto;
   height: 80%;
+  background-color: #242424;
+  border: 7px solid #242424;
+  border-radius: 6px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 body .open-img-wrapper .open-img .full-img {
-  max-width: 100%;
-  max-height: 100%;
-  height: auto;
-  width: auto;
-  border: 7px solid #242424;
-  border-radius: 6px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  max-height: 95%;
+  max-height: 95%;
 }
 /*# sourceMappingURL=users.css.map */

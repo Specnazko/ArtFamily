@@ -31,17 +31,36 @@ body {
     }
 
     main {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 0px 50px 50px 50px;
 
-        .image-container {
+        .images-container {      
             display: flex;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+
+            .image-wrapper {
+                
+                border: 4px solid rgb(56, 56, 56);
+                border-radius: 6px;
+                cursor: zoom-in;
+
+                .image {
+                    max-width: 300px;
+                    max-height: 100%;
+                    height: auto; 
+                    width: auto; 
+                }        
+            }
         }
 
-        // .image {
-        //     display: block;
-        //     height: 100px;
-        //     width: 100px;
-        // }
-        
     }
 
     footer {
@@ -61,7 +80,7 @@ body {
         }
     }
     .open-img-wrapper {
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         height: 100%;
@@ -69,23 +88,34 @@ body {
         display: none;
         align-items: center;
         justify-content: center;
+        background-color: rgba(0, 0, 0, 0.8);
+
+        .next-img {
+            height: 70px;
+            cursor: pointer;
+        }
+
+        .early-img {
+            cursor: pointer;
+            height: 70px;
+        }
 
         .open-img {
-        display: none;
-        position: absolute;
-        max-width: 80%;
-        height: 80%;
-        
-
-            .full-img{
-                max-width: 100%;
-                max-height: 100%;
-                height: auto; 
-                width: auto; 
-                border: 7px solid rgb(36, 36, 36);
-                border-radius: 6px;
+            display: none;
+            width: auto;
+            height: 80%;
+            background-color: rgb(36, 36, 36);
+            border: 7px solid rgb(36, 36, 36);
+            border-radius: 6px;
+            align-items: center;
+            justify-content: center;
+    
+                .full-img{
+                    object-fit: contain;
+                    max-height: 95%;
+                    max-height: 95%;
+                }
             }
-        }
     }
 }
 
