@@ -153,6 +153,7 @@ body .open-img-wrapper {
 }
 
 body .open-img-wrapper .open-img {
+  display: none;
   position: absolute;
   max-width: 80%;
   height: 80%;

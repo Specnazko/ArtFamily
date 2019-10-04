@@ -12,6 +12,7 @@ body {
     background-color: rgb(22, 21, 21);
     color: rgb(204, 200, 200);
     font-family: Lato;
+    height: 100%;
 
     header {
         display: flex;
@@ -31,14 +32,22 @@ body {
 
     main {
 
+        .image-container {
+            display: flex;
+        }
+
+        // .image {
+        //     display: block;
+        //     height: 100px;
+        //     width: 100px;
+        // }
         
     }
 
     footer {
-        position: absolute;
-        bottom: 0px;
         width: 100%;
         height: 50px;
+        margin-top: 100px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -51,5 +60,32 @@ body {
             margin: 10px;
         }
     }
+    .open-img-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        display: none;
+        align-items: center;
+        justify-content: center;
 
+        .open-img {
+        display: none;
+        position: absolute;
+        max-width: 80%;
+        height: 80%;
+        
+
+            .full-img{
+                max-width: 100%;
+                max-height: 100%;
+                height: auto; 
+                width: auto; 
+                border: 7px solid rgb(36, 36, 36);
+                border-radius: 6px;
+            }
+        }
+    }
 }
+
