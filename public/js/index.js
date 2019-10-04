@@ -1,6 +1,7 @@
 'use strict'
 
 const userImg = document.querySelector('main');
+const userClick = document.querySelector('body')
 
 function openImg (e) {
     if (e.target.matches('.img')) {
@@ -24,3 +25,17 @@ function openImg (e) {
 }
 
 userImg.addEventListener('click', openImg);
+
+function requestUserCLick (e) {
+    if (e.target.matches('.user-nickname')) {
+        const userId = e.target.getAttribute('id');
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', `userClick/${userId}`);
+        xhr.send(); 
+        xhr.onload = function () {
+            return;
+        }    
+    }  
+}
+
+userClick.addEventListener('click', requestUserCLick)

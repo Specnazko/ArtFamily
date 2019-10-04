@@ -1,13 +1,11 @@
 'use strict'
 const userImg = document.querySelector('.images-container');
-const user = window.location.pathname.split("/")[window.location.pathname.split("/").length-2];
-
 
 function loadContent () {
     let userData;
     const request = new Promise( function (resolve, reject) {
         let xhr = new XMLHttpRequest();
-        xhr.open('GET', `loadContent`);
+        xhr.open('GET', `../users/loadContent`);
         xhr.send();
         xhr.onload = function () {
             resolve (xhr.response);
@@ -21,12 +19,12 @@ function loadContent () {
             result => {
                 userData = JSON.parse(result);
 
-                document.querySelector('.userIcon').setAttribute('src', `../${userData.id}/${userData.userIcon}`);
+                document.querySelector('.userIcon').setAttribute('src', `../users/${userData.id}/${userData.userIcon}`);
                 document.querySelector('.userName > span').innerHTML = userData.userName;
                 document.querySelector('.userInfo > span').innerHTML = userData.userInfo;
 
                 userData.images.forEach (function (e){
-                    document.querySelector('.images-container').insertAdjacentHTML('beforeend', `<div class="image-wrapper"><img src="../${userData.id}/img/${e}" alt="" class="image"></div>`);
+                    document.querySelector('.images-container').insertAdjacentHTML('beforeend', `<div class="image-wrapper"><img src="../users/${userData.id}/img/${e}" alt="" class="image"></div>`);
                 });
 
             },
