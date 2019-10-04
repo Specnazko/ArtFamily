@@ -34,9 +34,60 @@ body {
         height: 100%;
         display: flex;
         flex-direction: column;
-        padding: 0px 50px 50px 50px;
+        padding: 50px 50px 50px 50px;
 
-        .images-container {      
+        .userInfoWrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            border-bottom: 1px solid rgb(36, 36, 36);
+            
+
+            .userTable {
+                display: flex;
+                height: 200px;
+
+                .userIconWrapper {
+                    width: 290px;
+                    height: 150px;
+                    display: flex;
+                    justify-content: center;
+
+                    .userIcon {
+                        width: 150px;
+                        height: 150px;
+                        display: block;
+                        border-radius: 50%;
+                    }
+                }
+
+                .userInfo {
+                    width: 615px;
+                    height: 150px;
+                    display: flex;
+                    flex-direction: column;
+
+                    .userName {
+                        font-size: 28px;
+                        width: 615px;
+                        height: 40px;
+                        display: flex;
+                        align-items: flex-end;
+                    }
+
+                    .userInfo {
+                        margin-top: 20px;
+                        width: 615px;
+                        height: 90px;
+                        color: rgb(148, 148, 148);
+                    }
+
+                }
+
+            }
+        }
+
+        .images-container {
             display: flex;
             width: 100%;
             height: 100%;
@@ -47,7 +98,7 @@ body {
             flex-wrap: wrap;
 
             .image-wrapper {
-                
+                margin: 20px;
                 border: 4px solid rgb(56, 56, 56);
                 border-radius: 6px;
                 cursor: zoom-in;

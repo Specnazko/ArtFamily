@@ -21,11 +21,12 @@ function loadContent () {
             result => {
                 userData = JSON.parse(result);
 
-                const image = document.querySelector('.image');
+                document.querySelector('.userIcon').setAttribute('src', `../${userData.id}/${userData.userIcon}`);
+                document.querySelector('.userName > span').innerHTML = userData.userName;
+                document.querySelector('.userInfo > span').innerHTML = userData.userInfo;
+
                 userData.images.forEach (function (e){
-                
-                document.querySelector('.images-container').insertAdjacentHTML('beforeend', `<div class="image-wrapper"><img src="../${userData.id}/img/${e}" alt="" class="image"></div>`);
-                
+                    document.querySelector('.images-container').insertAdjacentHTML('beforeend', `<div class="image-wrapper"><img src="../${userData.id}/img/${e}" alt="" class="image"></div>`);
                 });
 
             },
@@ -53,7 +54,7 @@ function openImg (e) {
             if (src == arrImg[i].getAttribute('src')) index = i;
         }
 
-        console.log(index);
+
         function navigationImg (e) {
             
             if (e.target.matches('.next-img')){

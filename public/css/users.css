@@ -49,7 +49,74 @@ body main {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  padding: 0px 50px 50px 50px;
+  padding: 50px 50px 50px 50px;
+}
+
+body main .userInfoWrapper {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-bottom: 1px solid #242424;
+}
+
+body main .userInfoWrapper .userTable {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 200px;
+}
+
+body main .userInfoWrapper .userTable .userIconWrapper {
+  width: 290px;
+  height: 150px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+body main .userInfoWrapper .userTable .userIconWrapper .userIcon {
+  width: 150px;
+  height: 150px;
+  display: block;
+  border-radius: 50%;
+}
+
+body main .userInfoWrapper .userTable .userInfo {
+  width: 615px;
+  height: 150px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+body main .userInfoWrapper .userTable .userInfo .userName {
+  font-size: 28px;
+  width: 615px;
+  height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+body main .userInfoWrapper .userTable .userInfo .userInfo {
+  margin-top: 20px;
+  width: 615px;
+  height: 90px;
+  color: #949494;
 }
 
 body main .images-container {
@@ -73,6 +140,7 @@ body main .images-container {
 }
 
 body main .images-container .image-wrapper {
+  margin: 20px;
   border: 4px solid #383838;
   border-radius: 6px;
   cursor: -webkit-zoom-in;
