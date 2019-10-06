@@ -81,6 +81,10 @@ body {
                         height: 90px;
                         color: rgb(148, 148, 148);
                     }
+                    .userInfo > span{
+                        max-width: 615px;
+                        max-height: 90px;
+                    }
 
                 }
 
@@ -98,14 +102,19 @@ body {
             flex-wrap: wrap;
 
             .image-wrapper {
+                width: 350px;
+                height: 350px;
                 margin: 20px;
                 border: 4px solid rgb(56, 56, 56);
                 border-radius: 6px;
                 cursor: zoom-in;
 
                 .image {
-                    max-width: 300px;
-                    max-height: 100%;
+                    object-fit: cover;
+                    max-width: 350px;
+                    max-height: 350px;
+                    min-width: 350px;
+                    min-height: 350px;
                     height: auto; 
                     width: auto; 
                 }        
