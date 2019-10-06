@@ -11,10 +11,12 @@ const db = low(adapter);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get ('/', (req, res) => {
+
+
+
+app.get ('/loadUsers', (req, res) => {
   console.log(`URL: ${req.url}`);
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-  
+  res.send(db.get(`users`).value());
   res.end();
 });
 
