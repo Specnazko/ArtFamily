@@ -2,7 +2,7 @@
 
 const userImg = document.querySelector('main');
 const userClick = document.querySelector('body')
-
+let counterUsers = 0;
 
 function loadUsers () {
     let usersData;
@@ -23,29 +23,43 @@ function loadUsers () {
                 const usersList = Object.keys(usersData);
 
                 function loadUserTables () {
-                    for (let i=0; i<usersList.length; i++) {
-                        document.querySelector('main')
-                            .insertAdjacentHTML('beforeend', 
-                                `<div class="user-table">
-                                    <div class="user-table-info">
-                                        <img src="users/${usersList[i]}/${usersData[usersList[i]].userIcon}" alt="user-icon" class="user-icon">
-                                        <a href="/user.html" id="${usersList[i]}" class="user-nickname">${usersData[usersList[i]].userName}</a>
-                                    </div>
-                                    <div class="user-table-images ${usersList[i]}">
-                                    </div>                            
-                                </div>`
-                            );
-                            for (let j=usersData[usersList[i]].images.length-1; j>=0; j--) {
-                                document.querySelector(`.${usersList[i]}`)
+                
+                    for (let i=counterUsers; i<usersList.length && i<counterUsers+9; i++) {
+                        if(document.querySelector(`.${usersList[i]}`) === null) {
+                            document.querySelector('main')
                                 .insertAdjacentHTML('beforeend', 
-                                    `<img src="users/${usersList[i]}/img/${usersData[usersList[i]].images[j]}" alt="" class="img">`);
-                            }
+                                    `<div class="user-table">
+                                        <div class="user-table-info">
+                                            <img src="users/${usersList[i]}/${usersData[usersList[i]].userIcon}" alt="user-icon" class="user-icon">
+                                            <a href="/user.html" id="${usersList[i]}" class="user-nickname">${usersData[usersList[i]].userName}</a>
+                                        </div>
+                                        <div class="user-table-images ${usersList[i]}">
+                                        </div>                            
+                                    </div>`
+                                );
+                                for (let j=usersData[usersList[i]].images.length-1; j>=0; j--) {
+                                    document.querySelector(`.${usersList[i]}`)
+                                    .insertAdjacentHTML('beforeend', 
+                                        `<img src="users/${usersList[i]}/img/${usersData[usersList[i]].images[j]}" alt="" class="img">`);
+                                }
+                        }
                     }
+                    
+                    counterUsers += 9;
                 }
                 loadUserTables();
+                function populate() {
+                      let windowRelativeBottom = document.documentElement.getBoundingClientRect().bottom;
+                      if (windowRelativeBottom == document.documentElement.clientHeight)
+                      loadUserTables();
+                    
+                  }
+                if (counterUsers<=usersList.length) {
+                    window.addEventListener('scroll', populate);
+                };
 
             },
-            error => console.log('Error')
+            error => console.log(error)
         );
     }
     
