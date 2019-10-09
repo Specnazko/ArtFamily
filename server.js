@@ -1,5 +1,7 @@
 const express = require('express');
 const bodyParser = require("body-parser");
+const bcrypt = require ('bcrypt');
+const saltRounds = 10;    
 const multer = require("multer");
 const fs = require('fs');
 const path = require('path');
@@ -27,6 +29,39 @@ function giveOneUser () {
   return db.get(`users.${userId}`).value();
 }
 
+function loginToId (login) {
+  let id = '';
+  for (let i=0; i<login.length; i++) {
+    if (login[i] == ' ') {
+      id += '_';
+    } else {
+      login[i].toLowerCase();
+      id += login[i];
+    }
+  }
+  return id;
+}
+
+function addNewUser (login, password, name, info = '') {
+  if (!JSON.parse(db.has(`users.${loginToId(login)}`))) {
+    const hash = bcrypt.hashSync(password, saltRounds);
+    db.set(`users.${loginToId(login)}`, {
+          id: loginToId(login),
+          userName: name,
+          userIcon: '../../img/user.svg',
+          userInfo: info,
+          images: [],})
+        .write();
+    db.set(`authenticationData.${loginToId(login)}`, {
+      login: login,
+      password: hash,})
+    .write();
+    return true;
+  } else {
+    return false;
+  }
+}
+
 app.get ('/loadUsers', (req, res) => {
   res.send(giveUsers ());
   res.end();
@@ -48,8 +83,17 @@ app.get ('/users/:reqId', (req, res) => {
 });
 
 app.post ('/registerNewUser', upload.array(), (req, res) => {
-  console.log(req.body.registerLogin);
-  res.end();
+  if (addNewUser(req.body.registerLogin, 
+    req.body.registerPassword, 
+    req.body.registerName, 
+    req.body.userInfo)
+  ) {
+      res.end('true');
+
+    } else {
+      res.end('false');
+    }
+    
 });
 
 app.listen(port);

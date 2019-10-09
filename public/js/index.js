@@ -5,7 +5,6 @@ const userClick = document.querySelector('body');
 let counterUsers = 0;
 
 function registerNewUser (e) {
-    console.log(e);
     const formElements = document.querySelector('.registerForm');
     let formData = new FormData (formElements);
     if (formData.get('registerLogin')!="" 
@@ -14,6 +13,9 @@ function registerNewUser (e) {
             let xhr = new XMLHttpRequest();
             xhr.open('POST', '/registerNewUser');
             xhr.send(formData);
+            xhr.onload = function () {
+                console.log((xhr.response));
+            }    
         }
 
 }
