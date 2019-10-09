@@ -1,5 +1,6 @@
 'use strict'
 const userImg = document.querySelector('.images-container');
+const userClick = document.querySelector('body');
 
 function loadContent () {
     let userData;
@@ -79,3 +80,36 @@ function openImg (e) {
 }
 
 userImg.addEventListener('click', openImg);
+
+function processingUserCLick (e) {
+
+    if (e.target.matches('.signIn') || e.target.matches('.signInIcon')) {
+        const FormWrapper = document.querySelector('.FormWrapper');
+        const loginForm = document.querySelector('.loginForm');
+        const registerForm = document.querySelector('.registerForm');
+
+        FormWrapper.style.display = 'flex';
+        loginForm.style.display = 'flex';
+
+        function processingFormCLick (e) {
+            if (e.target.matches('.FormWrapper')){
+                FormWrapper.style.display = 'none';
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'none';
+            }
+
+            if (e.target.matches('.createAnAccount')) {
+                FormWrapper.style.display = 'flex';
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'flex';
+            }
+
+
+        }
+
+        FormWrapper.addEventListener('click', processingFormCLick)
+    }
+
+}
+
+userClick.addEventListener('click', processingUserCLick);

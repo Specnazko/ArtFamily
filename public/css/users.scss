@@ -8,6 +8,10 @@
     src: url(../fonts/Lato/Lato-Regular.ttf); 
 }
 
+html {
+    height: 100%;
+}
+
 body {
     background-color: rgb(22, 21, 21);
     color: rgb(204, 200, 200);
@@ -21,17 +25,51 @@ body {
         align-items: center;
         height: 100px;
         background-color: rgb(19, 18, 18);
+        justify-content:space-between;
 
         .home-link {
             font-size: 50px;
             color: white;
             text-decoration: none;
             font-family: Nautilus;
+            position: absolute;
+            margin-left: calc(50% - 101px);
+        }
+
+        .crutch {
+            margin-left: 100px;
+            height: 100px;
+ 
+        }
+
+        .signInWrapper {
+            margin-right: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+
+            .signInContainer {
+                display: flex;
+                flex-direction: row;
+                cursor: pointer;
+
+                .signInIcon {
+                    width: 15px;    
+                    height: 15px;
+                    margin-right: 5px;
+                }
+    
+                .signIn {
+                    font-size: 18px;
+                    color: rgb(139, 139, 139); 
+                }
+            }
+            
         }
     }
 
     main {
-        height: 100%;
+        min-height: calc(100% - 325px);
         display: flex;
         flex-direction: column;
         padding: 50px 50px 50px 50px;
@@ -124,11 +162,10 @@ body {
     }
 
     footer {
-        position: absolute;
-        margin-bottom: 0;
+        bottom: 0;
         width: 100%;
         height: 50px;
-        margin-top: 100px;
+        margin-top: 75px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -179,5 +216,118 @@ body {
                 }
             }
     }
+    .FormWrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 0, 0, 0.8);
+
+        .loginForm {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 300px;
+            height: 250px;
+            color: rgb(177, 177, 177);
+            background-color: rgb(19, 19, 19);
+            border: 7px solid rgb(19, 19, 19);
+            border-radius: 6px;
+            
+            .loginFormTytle {
+                margin: 20px;
+                font-size: 20px;
+            }
+            
+            .signInInput {
+                margin: 10px;
+                padding-left: 3px;
+                border: 1px solid rgb(61, 61, 61);
+                background-color: rgb(61, 61, 61);
+                outline: none;
+                height: 25px;
+                width: 200px;
+                color: rgb(177, 177, 177);
+                font-size: 16px;
+            }
+
+            .signInButton {
+                margin: 10px;
+                cursor: pointer;
+                height: 30px;
+                border: 1px solid rgb(177, 177, 177);
+                background-color: rgb(19, 19, 19);
+                color: rgb(177, 177, 177);
+
+            }
+
+            .createAnAccount{
+                margin: 10px;
+                color: rgb(99, 99, 99);
+                cursor: pointer;
+
+            }
+        }
+
+        .registerForm {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 300px;
+            height: 400px;
+            color: rgb(177, 177, 177);
+            background-color: rgb(19, 19, 19);
+            border: 7px solid rgb(19, 19, 19);
+            border-radius: 6px;
+            
+            .registerFormTytle {
+                margin: 20px;
+                font-size: 20px;
+            }
+            
+            .registerInput {
+                margin: 10px;
+                padding-left: 3px;
+                border: 1px solid rgb(61, 61, 61);
+                background-color: rgb(61, 61, 61);
+                outline: none;
+                height: 25px;
+                width: 200px;
+                color: rgb(177, 177, 177);
+                font-size: 16px;
+            }
+
+            .userInfoForm {
+                resize: none;
+                background-color: rgb(61, 61, 61);
+                border: 1px solid rgb(61, 61, 61);
+                color: rgb(177, 177, 177);
+                margin: 10px;
+                font-size: 16px;
+                outline: none;
+                width: 200px;
+                height: 100px;
+            }
+
+            .registerButton {
+                margin: 10px;
+                cursor: pointer;
+                height: 30px;
+                border: 1px solid rgb(177, 177, 177);
+                background-color: rgb(19, 19, 19);
+                color: rgb(177, 177, 177);
+
+            }
+
+        }
+    }
+
+
 }
 

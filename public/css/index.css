@@ -30,6 +30,9 @@ body header {
           align-items: center;
   height: 100px;
   background-color: #131212;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 body header .home-link {
@@ -37,6 +40,65 @@ body header .home-link {
   color: white;
   text-decoration: none;
   font-family: Nautilus;
+  position: absolute;
+  margin-left: calc(50% - 101px);
+}
+
+body header .searchWrapper {
+  margin-left: 100px;
+  height: 100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body header .searchWrapper .searchIcon {
+  width: 23px;
+  height: 23px;
+}
+
+body header .searchWrapper .search {
+  padding-left: 3px;
+  border: 1px solid #3d3d3d;
+  background-color: #3d3d3d;
+  outline: none;
+  color: #b1b1b1;
+}
+
+body header .signInWrapper {
+  margin-right: 100px;
+  height: 100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body header .signInWrapper .signInContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  cursor: pointer;
+}
+
+body header .signInWrapper .signInContainer .signInIcon {
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+}
+
+body header .signInWrapper .signInContainer .signIn {
+  font-size: 18px;
+  color: #8b8b8b;
 }
 
 body main {
@@ -174,5 +236,130 @@ body .open-img-wrapper .open-img .full-img {
      object-fit: contain;
   max-height: 95%;
   max-height: 95%;
+}
+
+body .FormWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: none;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+body .FormWrapper .loginForm {
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 300px;
+  height: 250px;
+  color: #b1b1b1;
+  background-color: #131313;
+  border: 7px solid #131313;
+  border-radius: 6px;
+}
+
+body .FormWrapper .loginForm .loginFormTytle {
+  margin: 20px;
+  font-size: 20px;
+}
+
+body .FormWrapper .loginForm .signInInput {
+  margin: 10px;
+  padding-left: 3px;
+  border: 1px solid #3d3d3d;
+  background-color: #3d3d3d;
+  outline: none;
+  height: 25px;
+  width: 200px;
+  color: #b1b1b1;
+  font-size: 16px;
+}
+
+body .FormWrapper .loginForm .signInButton {
+  margin: 10px;
+  cursor: pointer;
+  height: 30px;
+  border: 1px solid #b1b1b1;
+  background-color: #131313;
+  color: #b1b1b1;
+}
+
+body .FormWrapper .loginForm .createAnAccount {
+  margin: 10px;
+  color: #636363;
+  cursor: pointer;
+}
+
+body .FormWrapper .registerForm {
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 300px;
+  color: #b1b1b1;
+  background-color: #131313;
+  border: 7px solid #131313;
+  border-radius: 6px;
+}
+
+body .FormWrapper .registerForm .registerFormTytle {
+  margin: 20px;
+  font-size: 20px;
+}
+
+body .FormWrapper .registerForm .registerInput {
+  margin: 10px;
+  padding-left: 3px;
+  border: 1px solid #3d3d3d;
+  background-color: #3d3d3d;
+  outline: none;
+  height: 25px;
+  width: 200px;
+  color: #b1b1b1;
+  font-size: 16px;
+}
+
+body .FormWrapper .registerForm .userInfoForm {
+  resize: none;
+  background-color: #3d3d3d;
+  border: 1px solid #3d3d3d;
+  color: #b1b1b1;
+  margin: 10px;
+  font-size: 16px;
+  outline: none;
+  width: 200px;
+  height: 100px;
+}
+
+body .FormWrapper .registerForm .registerButton {
+  margin: 10px;
+  cursor: pointer;
+  height: 30px;
+  border: 1px solid #b1b1b1;
+  background-color: #131313;
+  color: #b1b1b1;
 }
 /*# sourceMappingURL=index.css.map */
