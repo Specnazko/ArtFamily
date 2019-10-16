@@ -12,7 +12,22 @@ const FileSync = require('lowdb/adapters/FileSync');
 const adapter = new FileSync('db.json');
 const db = low(adapter);
 
-let upload = multer({ dest: "./upload/" });
+let storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    if (req.url == '/registerNewUser' && !JSON.parse(db.has(`users.${loginToId(req.body.registerLogin)}`))){
+      fs.mkdirSync(`./public/users/${loginToId(req.body.registerLogin)}`);
+      fs.mkdirSync(`./public/users/${loginToId(req.body.registerLogin)}/img`);
+      cb(null, `./public/users/${loginToId(req.body.registerLogin)}`);
+    }
+    
+  },
+  filename: function (req, file, cb) {
+    if (req.url == '/registerNewUser' && !JSON.parse(db.has(`users.${loginToId(req.body.registerLogin)}`))){
+    cb(null, "user.png");
+    }
+  }
+});
+let upload = multer({ storage: storage });
 
 app.use(bodyParser.urlencoded({
   extended: true
@@ -42,7 +57,8 @@ function loginToId (login) {
   return id;
 }
 
-function addNewUser (login, password, name, info = '') {
+function addNewUser (login, password, name, info = '', userIcon) {
+  console.log(userIcon);
   if (!JSON.parse(db.has(`users.${loginToId(login)}`))) {
     const hash = bcrypt.hashSync(password, saltRounds);
     db.set(`users.${loginToId(login)}`, {
@@ -82,11 +98,11 @@ app.get ('/users/:reqId', (req, res) => {
   res.end();
 });
 
-app.post ('/registerNewUser', upload.array(), (req, res) => {
+app.post ('/registerNewUser', upload.single('userIcon'), (req, res) => {
   if (addNewUser(req.body.registerLogin, 
     req.body.registerPassword, 
     req.body.registerName, 
-    req.body.userInfo)
+    req.body.userInfo, req.file)
   ) {
       res.end('true');
 

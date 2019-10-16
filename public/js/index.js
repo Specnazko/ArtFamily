@@ -4,6 +4,8 @@ const userImg = document.querySelector('main');
 const userClick = document.querySelector('body');
 let counterUsers = 0;
 
+
+
 function registerNewUser (e) {
     const formElements = document.querySelector('.registerForm');
     let formData = new FormData (formElements);
@@ -135,10 +137,19 @@ function processingUserCLick (e) {
 
             if (e.target.matches('.createAnAccount')) {
                 const registerButton = document.querySelector('.registerButton')
+                let inputUserIcon = document.querySelector('.inputUserIcon');
+
                 FormWrapper.style.display = 'flex';
                 loginForm.style.display = 'none';
                 registerForm.style.display = 'flex';
 
+                inputUserIcon.addEventListener('change', (e)=> {
+                    let fileName = '';
+                    let labelUserIcon = document.querySelector('.downloadUserIcon');
+                    fileName = e.target.value.split( '\\' ).pop();
+                    labelUserIcon.innerHTML = fileName;
+                });
+                
                 registerButton.addEventListener('click', registerNewUser);
             }
 

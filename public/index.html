@@ -45,11 +45,16 @@
             <button type="submit" name="signInButton" class="signInButton">SIGN IN</button>
             <span class="createAnAccount">Create an account</span>
         </form>
-        <form class="registerForm" onsubmit="return false">
+        <form class="registerForm" onsubmit="return false" enctype="multipart/form-data">
             <span class="registerFormTytle">Create an account</span>
             <input type="text" required name="registerLogin" class="registerLogin registerInput" placeholder="Login">
             <input type="password" required name="registerPassword" value="" class="registerPassword registerInput" placeholder="Password">
             <input type="text" required name="registerName" value="" class="registerName registerInput" placeholder="Name">
+            <input type="file" name="userIcon" id="inputUserIcon" class="inputUserIcon" accept="image/*,image/jpeg">
+            <label class="downloadUserIcon" for="inputUserIcon">    
+                SELECT AVATAR
+            </label>
+            
             <textarea name="userInfo" maxlength="110" value="" class="userInfoForm" placeholder="Tell us about yourself"></textarea>
             <button type="submit" name="registerButton" class="registerButton">REGISTER</button>
         </form>
