@@ -12,13 +12,35 @@ function registerNewUser (e) {
     if (formData.get('registerLogin')!="" 
         && formData.get('registerPassword')!=""
         && formData.get('registerName')!="") {
-            let xhr = new XMLHttpRequest();
-            xhr.open('POST', '/registerNewUser');
-            xhr.send(formData);
-            xhr.onload = function () {
-                console.log((xhr.response));
-            }    
-        }
+            const requestRegisterUser = new Promise( function (resolve, reject) {
+                let xhr = new XMLHttpRequest();
+                xhr.open('POST', '/registerNewUser');
+                xhr.send(formData);
+                xhr.onload = function () {
+                    resolve (xhr.response);
+                }    
+
+            });
+
+            const processingResulRegister = function () {
+                requestRegisterUser.then(
+                    result => {
+                        let flag = JSON.parse(result);
+                        
+                        if (flag) {
+                            document.querySelector('.FormWrapper').style.display = 'none';
+                            document.querySelector('.loginForm').style.display = 'none';
+                            document.querySelector('.registerForm').style.display = 'none';
+                        } else {
+                            document.querySelector('.registerLogin').insertAdjacentHTML('afterend', `<span class="UserNameError">Username is not available</span>`);
+                        }
+                    },
+                    error => console.log('Error')
+                );
+            }
+            
+            processingResulRegister ();
+    }
 
 }
 

@@ -365,6 +365,11 @@ body .FormWrapper .registerForm .downloadUserIcon {
   color: #b1b1b1;
 }
 
+body .FormWrapper .registerForm .UserNameError {
+  color: red;
+  font-size: 16px;
+}
+
 body .FormWrapper .registerForm .userInfoForm {
   resize: none;
   background-color: #3d3d3d;

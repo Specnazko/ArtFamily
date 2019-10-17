@@ -50,8 +50,7 @@ function loginToId (login) {
     if (login[i] == ' ') {
       id += '_';
     } else {
-      login[i].toLowerCase();
-      id += login[i];
+      id += login[i].toLowerCase();
     }
   }
   return id;
