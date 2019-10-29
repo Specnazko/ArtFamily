@@ -47,6 +47,23 @@
     }
   },
   "authenticationData": {
-    
+    "alise_mkr": {
+      "login": "alise_mkr",
+      "password": "$2b$10$gbUVnddABTBcF1R8AN2VMOD74EbANZ1CxpJFwTUkUmhaHmIv2lkUe"
+    },
+    "max_stern": {
+      "login": "max_stern",
+      "password": "$2b$10$qVNMGWzWtXJ/uoqqPQ9Nt.8IqQO9UaOmEJMJXQ1O6YR6bwEehtO3O"
+    },
+    "power_of_idiocy": {
+      "login": "power_of_idiocy",
+      "password": "$2b$10$rwhRRCGk.TM/qJ8Fkodbb.4Tgzd4zr9nG.LxqC/wW0BAanTxxWO1i"
+    }
+  },
+  "tokens": {
+    "max_stern": {
+      "id": "max_stern",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Im1heF9zdGVybiIsImlhdCI6MTU3MjIxNTg3NX0.SCFnqXSjOcAFAikOrm4-6b9CKpaI4xORfJ0XaO3RXG0"
+    }
   }
 }

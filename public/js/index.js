@@ -5,6 +5,39 @@ const userClick = document.querySelector('body');
 let counterUsers = 0;
 
 
+function loginUser (e) {
+    const loginFormElements = document.querySelector('.loginForm');
+    let formData = new FormData (loginFormElements);
+    if (formData.get('signInLogin')!="" 
+        && formData.get('signInPassword')!="") {
+            const requestLoginUser = new Promise( function (resolve, reject) {
+                let xhr = new XMLHttpRequest();
+                xhr.open('POST', '/loginUser');
+                xhr.send(formData);
+                xhr.onload = function () {
+                    resolve (xhr.response);
+                }    
+
+            });
+
+            const processingLoginUser = function () {
+                requestLoginUser.then(
+                    result => {
+                        let flag = JSON.parse(result);
+                        if (flag != false) {
+                            document.cookie = `token=${flag}; path=/`;
+                        } else {
+                            document.querySelector('.signInPassword').insertAdjacentHTML('afterend', `<span class="UserNameError">User name or password is not correct</span>`);
+                        }
+                    },
+                    error => console.log('Error')
+                );
+            }
+            
+            processingLoginUser ();
+    }
+}
+
 
 function registerNewUser (e) {
     const formElements = document.querySelector('.registerForm');
@@ -155,6 +188,10 @@ function processingUserCLick (e) {
                 FormWrapper.style.display = 'none';
                 loginForm.style.display = 'none';
                 registerForm.style.display = 'none';
+            }
+
+            if (e.target.matches('.signInButton')) {
+                loginUser(e);
             }
 
             if (e.target.matches('.createAnAccount')) {

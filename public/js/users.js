@@ -2,6 +2,44 @@
 const userImg = document.querySelector('.images-container');
 const userClick = document.querySelector('body');
 
+function registerNewUser (e) {
+    const formElements = document.querySelector('.registerForm');
+    let formData = new FormData (formElements);
+    if (formData.get('registerLogin')!="" 
+        && formData.get('registerPassword')!=""
+        && formData.get('registerName')!="") {
+            const requestRegisterUser = new Promise( function (resolve, reject) {
+                let xhr = new XMLHttpRequest();
+                xhr.open('POST', '/registerNewUser');
+                xhr.send(formData);
+                xhr.onload = function () {
+                    resolve (xhr.response);
+                }    
+
+            });
+
+            const processingResulRegister = function () {
+                requestRegisterUser.then(
+                    result => {
+                        let flag = JSON.parse(result);
+                        
+                        if (flag) {
+                            document.querySelector('.FormWrapper').style.display = 'none';
+                            document.querySelector('.loginForm').style.display = 'none';
+                            document.querySelector('.registerForm').style.display = 'none';
+                        } else {
+                            document.querySelector('.registerLogin').insertAdjacentHTML('afterend', `<span class="UserNameError">Username is not available</span>`);
+                        }
+                    },
+                    error => console.log('Error')
+                );
+            }
+            
+            processingResulRegister ();
+    }
+
+}
+
 function loadContent () {
     let userData;
     const request = new Promise( function (resolve, reject) {
@@ -82,7 +120,15 @@ function openImg (e) {
 userImg.addEventListener('click', openImg);
 
 function processingUserCLick (e) {
-
+    if (e.target.matches('.user-nickname')) {
+        const userId = e.target.getAttribute('id');
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', `userClick/${userId}`);
+        xhr.send(); 
+        xhr.onload = function () {
+            return;
+        }    
+    }
     if (e.target.matches('.signIn') || e.target.matches('.signInIcon')) {
         const FormWrapper = document.querySelector('.FormWrapper');
         const loginForm = document.querySelector('.loginForm');
@@ -99,9 +145,21 @@ function processingUserCLick (e) {
             }
 
             if (e.target.matches('.createAnAccount')) {
+                const registerButton = document.querySelector('.registerButton')
+                let inputUserIcon = document.querySelector('.inputUserIcon');
+
                 FormWrapper.style.display = 'flex';
                 loginForm.style.display = 'none';
                 registerForm.style.display = 'flex';
+
+                inputUserIcon.addEventListener('change', (e)=> {
+                    let fileName = '';
+                    let labelUserIcon = document.querySelector('.downloadUserIcon');
+                    fileName = e.target.value.split( '\\' ).pop();
+                    labelUserIcon.innerHTML = fileName;
+                });
+                
+                registerButton.addEventListener('click', registerNewUser);
             }
 
 
@@ -111,5 +169,4 @@ function processingUserCLick (e) {
     }
 
 }
-
 userClick.addEventListener('click', processingUserCLick);

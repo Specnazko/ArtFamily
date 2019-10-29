@@ -11,6 +11,7 @@ const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
 const adapter = new FileSync('db.json');
 const db = low(adapter);
+const jwt = require('jsonwebtoken');
 
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -44,6 +45,10 @@ function giveOneUser () {
   return db.get(`users.${userId}`).value();
 }
 
+function giveToken (user) {
+  return db.get(`tokens.${user}`).value();
+}
+
 function loginToId (login) {
   let id = '';
   for (let i=0; i<login.length; i++) {
@@ -54,6 +59,11 @@ function loginToId (login) {
     }
   }
   return id;
+}
+
+function loginUser (login, password) {
+  const hash = db.get(`authenticationData.${loginToId(login)}.password`).value();
+  return bcrypt.compareSync(password,  hash);
 }
 
 function addNewUser (login, password, name, info = '', userIcon) {
@@ -67,6 +77,14 @@ function addNewUser (login, password, name, info = '', userIcon) {
           userInfo: info,
           images: [],})
         .write();
+    
+    if (userIcon != "") {
+      db.set(`users.${loginToId(login)}`, {
+        userIcon: `../../img/users/${loginToId(login)}/user.png`})
+      .write();
+
+    }
+
     db.set(`authenticationData.${loginToId(login)}`, {
       login: login,
       password: hash,})
@@ -108,6 +126,23 @@ app.post ('/registerNewUser', upload.single('userIcon'), (req, res) => {
     } else {
       res.end('false');
     }
+    
+});
+
+app.post ('/loginUser', upload.none(), (req, res) => {
+  console.log(`URL: ${req.url}`);
+  if (loginUser(req.body.signInLogin, req.body.signInPassword)) {
+    let userToken = jwt.sign({ login: `${loginToId(req.body.signInLogin)}` }, 'secretKey');
+    db.set(`tokens.${loginToId(req.body.signInLogin)}`, {
+        id: loginToId(req.body.signInLogin),
+        token: userToken,})
+      .write();
+    res.send (giveToken (loginToId(req.body.signInLogin)));
+    res.end();
+    
+  } else {
+    res.end('false');
+  }
     
 });
 
