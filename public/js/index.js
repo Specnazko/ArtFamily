@@ -17,6 +17,7 @@ function logoutUser(id) {
     let xhr = new XMLHttpRequest();
     xhr.open('GET', `/logout/${id}`);
     xhr.send();
+    credentials ();
 }
 
 function credentials () {
@@ -186,6 +187,34 @@ function loadUsers () {
                     window.addEventListener('scroll', populate);
                 };
 
+
+                const search = document.querySelector('.search');
+                search.addEventListener("keyup", (e) => {
+                    if (e.code === 'Enter') {
+                        for (let i=0; i<usersList.length; i++) {
+                            if (usersData[usersList[i]].userName == search.value) {
+                                document.querySelector('main')
+                                .innerHTML=`
+                                    <div class="user-table">
+                                        <div class="user-table-info">
+                                            <img src="users/${usersList[i]}/${usersData[usersList[i]].userIcon}" alt="user-icon" class="user-icon">
+                                            <a href="/user.html" id="${usersList[i]}" class="user-nickname">${usersData[usersList[i]].userName}</a>
+                                        </div>
+                                        <div class="user-table-images ${usersList[i]}">
+                                        </div>                            
+                                    </div>`;
+                                for (let j=usersData[usersList[i]].images.length-1; j>=usersData[usersList[i]].images.length-7; j--) {
+                                    document.querySelector(`.${usersList[i]}`)
+                                    .insertAdjacentHTML('beforeend', 
+                                        `<img src="users/${usersList[i]}/img/${usersData[usersList[i]].images[j]}" alt="" class="img">`);
+                                }
+                                break;
+                            }
+                        }
+                      }
+                });
+
+                
             },
             error => console.log(error)
         );

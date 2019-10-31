@@ -15,6 +15,7 @@ function logoutUser(id) {
     let xhr = new XMLHttpRequest();
     xhr.open('GET', `/logout/${id}`);
     xhr.send();
+    location.href=location.href;
 }
 
 function addImage () {

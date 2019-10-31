@@ -64,10 +64,7 @@
     }
   },
   "tokens": {
-    "max_stern": {
-      "id": "max_stern",
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Im1heF9zdGVybiIsImlhdCI6MTU3MjUxNjg2OH0.Tqu57S5A03m3hN5JKmf_H_dVGUZX22kR3aVqhaCfMfE"
-    },
+    "max_stern": {},
     "alise_mkr": {}
   }
 }
