@@ -1,9 +1,58 @@
 'use strict'
 
+
 const userImg = document.querySelector('main');
 const userClick = document.querySelector('body');
 let counterUsers = 0;
 
+function getCookie(name) {
+    let matches = document.cookie.match(new RegExp(
+      "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : false;
+  }
+
+function logoutUser(id) {
+    document.cookie = "token=; max-age=-1";
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', `/logout/${id}`);
+    xhr.send();
+}
+
+function credentials () {
+    if (getCookie('token') == false) return null;
+    let str = getCookie('token');
+    let userCredId = '';
+    let userCredName = '';
+    for (let i=0; i<str.length; i++) {
+        if (str[i] == ':') break;
+        userCredId += str[i];
+    }
+    for (let i=0; i<userCredId.length; i++) {
+        if (i == 0) {
+            userCredName += str[i].toUpperCase();
+            continue;
+        }
+        if (str[i] == '_') {
+            userCredName += ' ';
+            i++;
+            userCredName += str[i].toUpperCase();
+            continue;
+        }
+        userCredName += str[i];
+    }
+
+    
+    
+    document.querySelector('.signInContainer').innerHTML = `<a href="/user.html" id="${userCredId}" class="user-nickname">${userCredName}</a>`;
+    document.querySelector('.signInContainer').insertAdjacentHTML('beforeend', `<img src="img/logout.png" class="logoutIcon alt="">`);
+
+    let logoutButton = document.querySelector('.logoutIcon');
+    logoutButton.addEventListener('click', ()=>{logoutUser(userCredId)});
+    
+}
+
+credentials ();
 
 function loginUser (e) {
     const loginFormElements = document.querySelector('.loginForm');
@@ -25,7 +74,11 @@ function loginUser (e) {
                     result => {
                         let flag = JSON.parse(result);
                         if (flag != false) {
-                            document.cookie = `token=${flag}; path=/`;
+                            document.querySelector('.FormWrapper').style.display = 'none';
+                            document.querySelector('.loginForm').style.display = 'none';
+                            document.querySelector('.registerForm').style.display = 'none';
+                            document.cookie = `token=${flag.id}:${flag.token}; path=/`;
+                            credentials ();
                         } else {
                             document.querySelector('.signInPassword').insertAdjacentHTML('afterend', `<span class="UserNameError">User name or password is not correct</span>`);
                         }
@@ -55,15 +108,17 @@ function registerNewUser (e) {
 
             });
 
-            const processingResulRegister = function () {
+            const processingResultRegister = function () {
                 requestRegisterUser.then(
                     result => {
                         let flag = JSON.parse(result);
                         
-                        if (flag) {
+                        if (flag != false) {
                             document.querySelector('.FormWrapper').style.display = 'none';
                             document.querySelector('.loginForm').style.display = 'none';
                             document.querySelector('.registerForm').style.display = 'none';
+                            document.cookie = `token=${flag.id}:${flag.token}; path=/; max-age=36000`;
+                            credentials ();
                         } else {
                             document.querySelector('.registerLogin').insertAdjacentHTML('afterend', `<span class="UserNameError">Username is not available</span>`);
                         }
@@ -72,7 +127,7 @@ function registerNewUser (e) {
                 );
             }
             
-            processingResulRegister ();
+            processingResultRegister ();
     }
 
 }
@@ -110,7 +165,7 @@ function loadUsers () {
                                         </div>                            
                                     </div>`
                                 );
-                                for (let j=usersData[usersList[i]].images.length-1; j>=0; j--) {
+                                for (let j=usersData[usersList[i]].images.length-1; j>=usersData[usersList[i]].images.length-7; j--) {
                                     document.querySelector(`.${usersList[i]}`)
                                     .insertAdjacentHTML('beforeend', 
                                         `<img src="users/${usersList[i]}/img/${usersData[usersList[i]].images[j]}" alt="" class="img">`);

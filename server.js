@@ -12,6 +12,7 @@ const FileSync = require('lowdb/adapters/FileSync');
 const adapter = new FileSync('db.json');
 const db = low(adapter);
 const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
 
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -19,12 +20,16 @@ let storage = multer.diskStorage({
       fs.mkdirSync(`./public/users/${loginToId(req.body.registerLogin)}`);
       fs.mkdirSync(`./public/users/${loginToId(req.body.registerLogin)}/img`);
       cb(null, `./public/users/${loginToId(req.body.registerLogin)}`);
+    } else if (req.url == '/addNewImage'){
+      db.get(`users.${req.body.idUI}.images`).push(`${file.originalname}.jpeg`).write();
+      cb(null, `./public/users/${req.body.idUI}/img`);
     }
-    
   },
   filename: function (req, file, cb) {
     if (req.url == '/registerNewUser' && !JSON.parse(db.has(`users.${loginToId(req.body.registerLogin)}`))){
-    cb(null, "user.png");
+      cb(null, "user.png");
+    } else if (req.url == '/addNewImage'){
+      cb(null, file.originalname + '.jpeg');
     }
   }
 });
@@ -36,6 +41,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(cookieParser());
 
 function giveUsers () {
   return db.get(`users`).value();
@@ -73,17 +79,11 @@ function addNewUser (login, password, name, info = '', userIcon) {
     db.set(`users.${loginToId(login)}`, {
           id: loginToId(login),
           userName: name,
-          userIcon: '../../img/user.svg',
+          userIcon: `../../users/${loginToId(login)}/user.png`,
           userInfo: info,
           images: [],})
         .write();
-    
-    if (userIcon != "") {
-      db.set(`users.${loginToId(login)}`, {
-        userIcon: `../../img/users/${loginToId(login)}/user.png`})
-      .write();
 
-    }
 
     db.set(`authenticationData.${loginToId(login)}`, {
       login: login,
@@ -103,7 +103,6 @@ app.get ('/loadUsers', (req, res) => {
 let userId;
 
 app.get ('/userClick/:userId', (req, res) => {
-  console.log(`URL: ${req.url}`);
   userId = req.params.userId;
   res.end();
 });
@@ -121,7 +120,13 @@ app.post ('/registerNewUser', upload.single('userIcon'), (req, res) => {
     req.body.registerName, 
     req.body.userInfo, req.file)
   ) {
-      res.end('true');
+      let userToken = jwt.sign({ login: `${loginToId(req.body.registerLogin)}` }, 'secretKey');
+      db.set(`tokens.${loginToId(req.body.registerLogin)}`, {
+          id: loginToId(req.body.registerLogin),
+          token: userToken,})
+        .write();
+      res.send (giveToken (loginToId(req.body.registerLogin)));
+      res.end();
 
     } else {
       res.end('false');
@@ -141,9 +146,19 @@ app.post ('/loginUser', upload.none(), (req, res) => {
     res.end();
     
   } else {
-    res.end('false');
-  }
-    
+    res.end(false);
+  } 
+});
+
+app.post ('/addNewImage', upload.single('NewImg'), (req, res) => {
+  res.end('true'); 
+});
+
+app.get ('/logout/:userId', (req, res) => {
+  console.log(`URL: ${req.url}`);
+  logoutId = req.params.userId;
+  db.set(`tokens.${logoutId}`, {}).write();
+  res.end();
 });
 
 app.listen(port);

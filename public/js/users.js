@@ -1,6 +1,139 @@
 'use strict'
+
 const userImg = document.querySelector('.images-container');
 const userClick = document.querySelector('body');
+
+function getCookie(name) {
+    let matches = document.cookie.match(new RegExp(
+      "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : false;
+  }
+
+function logoutUser(id) {
+    document.cookie = "token=; max-age=-1";
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', `/logout/${id}`);
+    xhr.send();
+}
+
+function addImage () {
+    let str = getCookie('token');
+    let userCredIdidUI = '';
+    for (let i=0; i<str.length; i++) {
+        if (str[i] == ':') break;
+        userCredIdidUI += str[i];
+    }
+    
+    const formElements = document.querySelector('.inputNewImgWrapper');
+    let formData = new FormData (formElements);
+    const addNewImage = new Promise( function (resolve, reject) {
+                let xhr = new XMLHttpRequest();
+                xhr.open('POST', `/addNewImage`);
+                xhr.send(formData);
+                xhr.onload = function () {
+                    resolve (xhr.response);
+                }    
+    });
+
+    const processingAddImage = function () {
+        addNewImage.then(
+            result => {
+                let flag = JSON.parse(result);
+                if (flag) location.href=location.href;
+            },
+            error => console.log('Error')
+        );
+    }
+                
+    processingAddImage ();
+ 
+}
+
+function credentials (idPage) {
+    if (getCookie('token') == false) return null;
+    let str = getCookie('token');
+    let userCredId = '';
+    let userCredName = '';
+    for (let i=0; i<str.length; i++) {
+        if (str[i] == ':') break;
+        userCredId += str[i];
+    }
+    for (let i=0; i<userCredId.length; i++) {
+        if (i == 0) {
+            userCredName += str[i].toUpperCase();
+            continue;
+        }
+        if (str[i] == '_') {
+            userCredName += ' ';
+            i++;
+            userCredName += str[i].toUpperCase();
+            continue;
+        }
+        userCredName += str[i];
+    }
+
+    if (userCredId == idPage) {
+        document.querySelector('.images-container')
+            .insertAdjacentHTML('beforeend', 
+            `
+            <form class="inputNewImgWrapper" onsubmit="return false" enctype="multipart/form-data">    
+                <input type="text" name="idUI" class="inputNewImg" value="${userCredId}">
+                <input type="file" onchange="addImage()" name="NewImg" id="inputNewImg" class="inputNewImg" accept="image/*,image/jpeg">
+                <label for="inputNewImg">    
+                    <img src="img/addNewImage.png" class="downloadNewImg">
+                </label>
+            </form>`
+        );
+        
+    };
+
+    document.querySelector('.signInContainer').innerHTML = `<a href="/user.html" id="${userCredId}" class="user-nickname">${userCredName}</a>`;
+    document.querySelector('.signInContainer').insertAdjacentHTML('beforeend', `<img src="img/logout.png" class="logoutIcon alt="">`);
+    
+    let logoutButton = document.querySelector('.logoutIcon');
+    logoutButton.addEventListener('click', ()=>{logoutUser(userCredId)});
+
+}
+
+
+function loginUser (e) {
+    const loginFormElements = document.querySelector('.loginForm');
+    let formData = new FormData (loginFormElements);
+    if (formData.get('signInLogin')!="" 
+        && formData.get('signInPassword')!="") {
+            const requestLoginUser = new Promise( function (resolve, reject) {
+                let xhr = new XMLHttpRequest();
+                xhr.open('POST', '/loginUser');
+                xhr.send(formData);
+                xhr.onload = function () {
+                    resolve (xhr.response);
+                }    
+
+            });
+
+            const processingLoginUser = function () {
+                requestLoginUser.then(
+                    result => {
+                        let flag = JSON.parse(result);
+                        if (flag != false) {
+                            document.querySelector('.FormWrapper').style.display = 'none';
+                            document.querySelector('.loginForm').style.display = 'none';
+                            document.querySelector('.registerForm').style.display = 'none';
+                            document.cookie = `token=${flag.id}:${flag.token}; path=/; max-age=36000`;
+                            credentials ();
+                        } else {
+                            document.querySelector('.signInPassword').insertAdjacentHTML('afterend', `<span class="UserNameError">User name or password is not correct</span>`);
+                        }
+                    },
+                    error => console.log('Error')
+                );
+            }
+            
+            processingLoginUser ();
+    }
+}
+
 
 function registerNewUser (e) {
     const formElements = document.querySelector('.registerForm');
@@ -18,15 +151,17 @@ function registerNewUser (e) {
 
             });
 
-            const processingResulRegister = function () {
+            const processingResultRegister = function () {
                 requestRegisterUser.then(
                     result => {
                         let flag = JSON.parse(result);
                         
-                        if (flag) {
+                        if (flag != false) {
                             document.querySelector('.FormWrapper').style.display = 'none';
                             document.querySelector('.loginForm').style.display = 'none';
                             document.querySelector('.registerForm').style.display = 'none';
+                            document.cookie = `token=${flag.id}:${flag.token}; path=/`;
+                            credentials (flag.id);
                         } else {
                             document.querySelector('.registerLogin').insertAdjacentHTML('afterend', `<span class="UserNameError">Username is not available</span>`);
                         }
@@ -35,7 +170,7 @@ function registerNewUser (e) {
                 );
             }
             
-            processingResulRegister ();
+            processingResultRegister ();
     }
 
 }
@@ -65,7 +200,7 @@ function loadContent () {
                 userData.images.forEach (function (e){
                     document.querySelector('.images-container').insertAdjacentHTML('beforeend', `<div class="image-wrapper"><img src="../users/${userData.id}/img/${e}" alt="" class="image"></div>`);
                 });
-
+                credentials (userData.id);
             },
             error => console.log('Error')
         );
@@ -100,7 +235,7 @@ function openImg (e) {
                 if (index == arrImg.length) index=0;
                 img.setAttribute('src', arrImg[index].getAttribute('src'));
 
-            }else if ( e.target.matches('.early-img')) {
+            } else if ( e.target.matches('.early-img')) {
 
                 index--;
                 if (index == -1) index=arrImg.length-1;
@@ -144,6 +279,10 @@ function processingUserCLick (e) {
                 registerForm.style.display = 'none';
             }
 
+            if (e.target.matches('.signInButton')) {
+                loginUser(e);
+            }
+
             if (e.target.matches('.createAnAccount')) {
                 const registerButton = document.querySelector('.registerButton')
                 let inputUserIcon = document.querySelector('.inputUserIcon');
@@ -169,4 +308,5 @@ function processingUserCLick (e) {
     }
 
 }
-userClick.addEventListener('click', processingUserCLick);
+
+userClick.addEventListener('click', processingUserCLick)

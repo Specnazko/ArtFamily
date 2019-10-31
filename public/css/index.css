@@ -101,6 +101,19 @@ body header .signInWrapper .signInContainer .signIn {
   color: #8b8b8b;
 }
 
+body header .signInWrapper .signInContainer .user-nickname {
+  font-size: 18px;
+  color: #8b8b8b;
+  text-decoration: none;
+}
+
+body header .signInWrapper .signInContainer .logoutIcon {
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+  margin-left: 10px;
+}
+
 body main {
   margin: 100px 50px;
   display: -webkit-box;

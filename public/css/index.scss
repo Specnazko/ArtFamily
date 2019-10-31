@@ -76,6 +76,19 @@ body {
                     font-size: 18px;
                     color: rgb(139, 139, 139); 
                 }
+                
+                .user-nickname {
+                    font-size: 18px;
+                    color: rgb(139, 139, 139); 
+                    text-decoration: none;
+                }
+
+                .logoutIcon {
+                    cursor: pointer;
+                    width: 15px;    
+                    height: 15px;
+                    margin-left: 10px;
+                }
             }
             
         }
